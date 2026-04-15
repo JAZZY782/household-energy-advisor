@@ -287,6 +287,10 @@ with tab1:
 
         st.success(f"Predicted next 30-minute demand: {pred:.3f}")
 
+                q1, q2 = st.columns(2)
+        q1.metric("Predicted Next Demand", f"{pred:.3f}")
+        q2.metric("Suggested Low-Cost Hour", f"{int(cheapest_hour):02d}:00")
+        
         cheapest_hour = (
             tariff_hourly.groupby("hour")["unit_rate_eur_kwh"]
             .mean()
@@ -352,12 +356,21 @@ with tab3:
 
         st.dataframe(comparison_df)
 
-        if not comparison_df.empty:
+                if not comparison_df.empty:
             best = comparison_df.iloc[0]
-            st.success(
-                f"Cheapest supplier: {best['supplier']} — {best['plan_name']} "
-                f"| Estimated cost €{best['total_cost_eur']}"
-            )
+
+            st.markdown("### Best Recommendation Summary")
+
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Cheapest Supplier", best["supplier"])
+            c2.metric("Best Plan", best["plan_name"])
+            c3.metric("Estimated Total Cost (€)", f"{best['total_cost_eur']:.2f}")
+
+            c4, c5, c6 = st.columns(3)
+            c4.metric("Estimated Energy Cost (€)", f"{best['energy_cost_eur']:.2f}")
+            c5.metric("Standing Cost (€)", f"{best['standing_cost_eur']:.2f}")
+            c6.metric("Meter Type", str(best["meter_type"]))
+
 
             fig = px.bar(
                 comparison_df.head(10),
