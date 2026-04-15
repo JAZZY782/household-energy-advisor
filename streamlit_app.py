@@ -283,20 +283,20 @@ with tab1:
         feature_df["dayofweek"] = float(dayofweek)
         feature_df["month"] = float(month)
 
-        pred = predict_next_demand(model, feature_cols, feature_df)
+               pred = predict_next_demand(model, feature_cols, feature_df)
 
-        st.success(f"Predicted next 30-minute demand: {pred:.3f}")
-
-        q1, q2 = st.columns(2)
-        q1.metric("Predicted Next Demand", f"{pred:.3f}")
-        q2.metric("Suggested Low-Cost Hour", f"{int(cheapest_hour):02d}:00")
-        
         cheapest_hour = (
             tariff_hourly.groupby("hour")["unit_rate_eur_kwh"]
             .mean()
             .sort_values()
             .index[0]
         )
+
+        st.success(f"Predicted next 30-minute demand: {pred:.3f}")
+
+        q1, q2 = st.columns(2)
+        q1.metric("Predicted Next Demand", f"{pred:.3f}")
+        q2.metric("Suggested Low-Cost Hour", f"{int(cheapest_hour):02d}:00")
 
         st.info(
             f"Low-cost usage suggestion: flexible activities may be cheaper around {int(cheapest_hour):02d}:00."
