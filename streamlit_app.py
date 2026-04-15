@@ -287,7 +287,7 @@ with tab1:
 
         st.success(f"Predicted next 30-minute demand: {pred:.3f}")
 
-                q1, q2 = st.columns(2)
+        q1, q2 = st.columns(2)
         q1.metric("Predicted Next Demand", f"{pred:.3f}")
         q2.metric("Suggested Low-Cost Hour", f"{int(cheapest_hour):02d}:00")
         
