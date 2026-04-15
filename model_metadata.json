@@ -1,0 +1,50 @@
+{
+  "model_name": "Household Electricity Demand Forecast Model",
+  "model_file": "rf_household_forecast_timeaware.pkl",
+  "task_type": "Regression / Time-Series Forecasting",
+  "target_column": "target_demand",
+  "prediction_goal": "Predict next-interval household electricity demand",
+  "input_features": [
+    "demand",
+    "temp",
+    "hour",
+    "dayofweek",
+    "month",
+    "hour_sin",
+    "hour_cos",
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_24",
+    "rolling_mean_3",
+    "rolling_mean_6"
+  ],
+  "evaluation": {
+    "MAE": 0.12220952169965577,
+    "RMSE": 0.2894790868451579,
+    "R2": 0.360072779177232
+  },
+  "input_description": {
+    "demand": "Current electricity demand",
+    "temp": "Current temperature",
+    "hour": "Hour of day",
+    "dayofweek": "Day of week",
+    "month": "Month number",
+    "hour_sin": "Cyclical hour encoding sine",
+    "hour_cos": "Cyclical hour encoding cosine",
+    "lag_1": "Previous interval demand",
+    "lag_2": "Demand two intervals ago",
+    "lag_3": "Demand three intervals ago",
+    "lag_24": "Demand 24 intervals ago",
+    "rolling_mean_3": "Average demand over recent 3 intervals",
+    "rolling_mean_6": "Average demand over recent 6 intervals"
+  },
+  "output_description": {
+    "target_demand": "Predicted next-interval household electricity demand"
+  },
+  "notes": [
+    "This is a time-aware forecasting model.",
+    "Model trained on engineered historical household consumption features.",
+    "Prepared for later API and container deployment."
+  ]
+}
