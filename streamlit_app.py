@@ -260,10 +260,8 @@ with tab1:
     st.caption("Recent lag values are handled automatically in the background to keep this form simple.")
 
     if st.button("Predict Next Demand"):
-        # Build timestamp from user inputs
         current_dt = pd.Timestamp(year=2026, month=int(month), day=1, hour=int(hour), minute=0)
 
-        # Auto-filled lag assumptions for simple user mode
         lag_1 = demand
         lag_2 = demand
         lag_3 = demand
@@ -279,11 +277,10 @@ with tab1:
             lag_24=lag_24
         )
 
-        # Override dayofweek and month directly from user input
         feature_df["dayofweek"] = float(dayofweek)
         feature_df["month"] = float(month)
 
-               pred = predict_next_demand(model, feature_cols, feature_df)
+        pred = predict_next_demand(model, feature_cols, feature_df)
 
         cheapest_hour = (
             tariff_hourly.groupby("hour")["unit_rate_eur_kwh"]
@@ -356,7 +353,7 @@ with tab3:
 
         st.dataframe(comparison_df)
 
-                if not comparison_df.empty:
+        if not comparison_df.empty:
             best = comparison_df.iloc[0]
 
             st.markdown("### Best Recommendation Summary")
@@ -370,7 +367,6 @@ with tab3:
             c4.metric("Estimated Energy Cost (€)", f"{best['energy_cost_eur']:.2f}")
             c5.metric("Standing Cost (€)", f"{best['standing_cost_eur']:.2f}")
             c6.metric("Meter Type", str(best["meter_type"]))
-
 
             fig = px.bar(
                 comparison_df.head(10),
