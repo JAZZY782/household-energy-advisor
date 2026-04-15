@@ -1,0 +1,15 @@
+[
+  "demand",
+  "temp",
+  "hour",
+  "dayofweek",
+  "month",
+  "hour_sin",
+  "hour_cos",
+  "lag_1",
+  "lag_2",
+  "lag_3",
+  "lag_24",
+  "rolling_mean_3",
+  "rolling_mean_6"
+]
